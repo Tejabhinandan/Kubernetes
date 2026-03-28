@@ -1,9 +1,21 @@
 pipeline {
-    agent any
+    agent { label 'doc' }
+
+    environment {
+        KUBECONFIG = "/home/ubuntu/.kube/config"
+    }
+
     stages {
-        stage('Test') {
+
+        stage('Deploy') {
             steps {
-                echo 'Hello Jenkins'
+                sh 'kubectl apply -f pod.yaml'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh 'kubectl get pods -o wide'
             }
         }
     }
