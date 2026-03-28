@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        KUBECONFIG = "/home/ubuntu/.kube/config"
-    }
-
     stages {
 
         stage('Deploy') {
