@@ -1,36 +1,23 @@
 pipeline {
-    agent { label 'doc' }
-
-    environment {
-        KUBECONFIG = "/home/ubuntu/.kube/config"
-    }
+    agent any   // use your agent
 
     stages {
-
-        stage('Clone Repo') {
+        stage('Clone Code') {
             steps {
-                echo "Cloning repository..."
+                echo "Cloning repo..."
                 git 'https://github.com/Tejabhinandan/Kubernetes.git'
             }
         }
 
-        stage('Verify Files') {
+        stage('Check Files') {
             steps {
                 sh 'ls -l'
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy Pod') {
             steps {
-                sh '''
-                kubectl apply -f pod.yaml
-                '''
-            }
-        }
-
-        stage('Check Pods') {
-            steps {
-                sh 'kubectl get pods'
+                sh 'kubectl apply -f pod.yaml'
             }
         }
     }
