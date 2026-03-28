@@ -7,28 +7,25 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Debug Start') {
             steps {
-                echo "Cloning repository..."
-                git 'https://github.com/Tejabhinandan/Kubernetes.git'
+                echo "Pipeline started..."
             }
         }
 
-        stage('Verify Files') {
+        stage('List Files') {
             steps {
                 sh 'ls -l'
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy Pod') {
             steps {
-                sh '''
-                kubectl apply -f pod.yaml
-                '''
+                sh 'kubectl apply -f pod.yaml'
             }
         }
 
-        stage('Check Pods') {
+        stage('Verify') {
             steps {
                 sh 'kubectl get pods'
             }
