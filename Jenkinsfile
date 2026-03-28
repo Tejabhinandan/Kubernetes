@@ -1,17 +1,23 @@
 pipeline {
-    agent any
+    agent any   // use your agent
 
     stages {
-
-        stage('Deploy') {
+        stage('Clone Code') {
             steps {
-                sh 'kubectl apply -f pod.yaml'
+                echo "Cloning repo..."
+                git 'https://github.com/Tejabhinandan/Kubernetes.git'
             }
         }
 
-        stage('Verify') {
+        stage('Check Files') {
             steps {
-                sh 'kubectl get pods -o wide'
+                sh 'ls -l'
+            }
+        }
+
+        stage('Deploy Pod') {
+            steps {
+                sh 'kubectl apply -f pod.yaml'
             }
         }
     }
