@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'doc' }
+    agent any
 
     environment {
         KUBECONFIG = "/home/ubuntu/.kube/config"
